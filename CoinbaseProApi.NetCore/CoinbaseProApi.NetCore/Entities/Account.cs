@@ -8,16 +8,16 @@ namespace CoinbaseProApi.NetCore.Entities
     public class Account
     {
         [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        public string cd { get; set; }
         [JsonProperty(PropertyName = "currency")]
-        public string Currency { get; set; }
+        public string currency { get; set; }
         [JsonProperty(PropertyName = "balance")]
-        public decimal Balance { get; set; }
+        public decimal balance { get; set; }
         [JsonProperty(PropertyName = "available")]
-        public decimal Available { get; set; }
+        public decimal available { get; set; }
         [JsonProperty(PropertyName = "hold")]
-        public decimal Hold { get; set; }
+        public decimal hold { get; set; }
         [JsonProperty(PropertyName = "profile_id")]
-        public string ProfileId { get; set; }
+        public string profileId { get; set; }
     }
 }
