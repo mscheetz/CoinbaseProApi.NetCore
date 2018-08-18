@@ -27,15 +27,29 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="useSandbox">Use sandbox api (default = false)</param>
         public CoinbaseProRepository(bool useSandbox = false)
         {
+            LoadRepository(useSandbox);
+        }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="apiInfo">ApiInformation for authentication</param>
+        /// <param name="useSandbox">Use sandbox api (default = false)</param>
+        public CoinbaseProRepository(ApiInformation apiInfo, bool useSandbox = false)
+        {
+            _apiInfo = apiInfo;
             LoadRepository(useSandbox);
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">Base url value</param>
+        /// <param name="apiKey">Api key</param>
+        /// <param name="apiSecret">Api key secret</param>
+        /// <param name="extraValue">Api key extra value</param>
+        /// <param name="useSandbox">Use sandbox api (default = false)</param>
         public CoinbaseProRepository(string apiKey, string apiSecret, string extraValue, bool useSandbox = false)
         {
             _apiInfo = new ApiInformation
@@ -50,7 +64,8 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="apiInformation">Api Information</param>
+        /// <param name="configPath">Path to configuration file</param>
+        /// <param name="useSandbox">Use sandbox api (default = false)</param>
         public CoinbaseProRepository(string configPath, bool useSandbox = false)
         {
             IFileRepository _fileRepo = new FileRepository.FileRepository();
@@ -78,6 +93,7 @@ namespace CoinbaseProApi.NetCore.Data
             baseUrl = useSandbox 
                 ? "https://public.sandbox.pro.coinbase.com"
                 : "https://api.pro.coinbase.com";
+            _helper = new Helper();
             _dtHelper = new DateTimeHelper();
         }
 
@@ -586,17 +602,96 @@ namespace CoinbaseProApi.NetCore.Data
         /// Get historic rates
         /// </summary>
         /// <param name="pair">Trading pair</param>
-        /// <returns>GdaxTrade array</returns>
-        public async Task<HistoricRates[]> GetHistoricRates(string pair, DateTimeOffset endTime, Granularity granularity, int candleCount)
+        /// <param name="granularity">Candle size</param>
+        /// <param name="candleCount">Number of candles</param>
+        /// <returns>HistoricRates array</returns>
+        public async Task<HistoricRates[]> GetHistoricRates(string pair, Granularity granularity, int candleCount)
         {
+            return await OnGetHistoricRates(pair, null, null, granularity, candleCount);
+        }
+
+        /// <summary>
+        /// Get historic rates
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="endTime">End time of candles</param>
+        /// <param name="granularity">Candle size</param>
+        /// <param name="candleCount">Number of candles</param>
+        /// <returns>HistoricRates array</returns>
+        public async Task<HistoricRates[]> GetHistoricRates(string pair, DateTime endTime, Granularity granularity, int candleCount)
+        {
+            return await OnGetHistoricRates(pair, null, endTime, granularity, candleCount);
+        }
+
+        /// <summary>
+        /// Get historic rates
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="startTime">Start time of candles</param>
+        /// <param name="endTime">End time of candles</param>
+        /// <param name="granularity">Candle size</param>
+        /// <returns>HistoricRates array</returns>
+        public async Task<HistoricRates[]> GetHistoricRates(string pair, DateTime startTime, DateTime endTime, Granularity granularity)
+        {
+            return await OnGetHistoricRates(pair, startTime, endTime, granularity, 0);
+        }
+
+        /// <summary>
+        /// Get historic rates
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="startTime">Start time of candles</param>
+        /// <param name="endTime">End time of candles</param>
+        /// <param name="granularity">Candle size</param>
+        /// <param name="candleCount">Number of candles</param>
+        /// <returns>HistoricRates array</returns>
+        private async Task<HistoricRates[]> OnGetHistoricRates(string pair, DateTime? startTime, DateTime? endTime, Granularity granularity, int candleCount)
+        {
+            DateTime endDT = endTime == null ? DateTime.UtcNow : (DateTime)endTime;
+            DateTime startDT = DateTime.UtcNow;
+            if(startTime == null)
+            {
+                startDT = _helper.GetFromUnixTime(endDT, granularity, candleCount);
+            }
+            else
+            {
+                startDT = (DateTime)startTime;
+            }
+            var startISO = _helper.GetISO8601Date(startDT);
+            var endISO = _helper.GetISO8601Date(endDT);
             var tradingPair = _helper.CreateDashedPair(pair);
             var longGranularity = _helper.GranularityToNumber(granularity);
-            var url = baseUrl + $"/products/{tradingPair}/candles";
-
-            // TODO: figure out ISO 8601 time type
-            // TODO: GET start time backing off from start time
+            var url = baseUrl + $"/products/{tradingPair}/candles?start={startISO}&end={endISO}&granularity={longGranularity}";
 
             var response = await _restRepo.GetApiStream<HistoricRates[]>(url, GetRequestHeaders());
+
+            return response;
+        }
+
+        /// <summary>
+        /// Get 24hr stats for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>PairStats object</returns>
+        public async Task<PairStats> GetStats(string pair)
+        {
+            var tradingPair = _helper.CreateDashedPair(pair);
+            var url = baseUrl + $"/products/{tradingPair}/stats";
+
+            var response = await _restRepo.GetApiStream<PairStats>(url, GetRequestHeaders());
+
+            return response;
+        }
+
+        /// <summary>
+        /// Get all currencies
+        /// </summary>
+        /// <returns>Currency array</returns>
+        public async Task<Currency[]> GetCurrencies()
+        {
+            var url = baseUrl + $"/currencies";
+
+            var response = await _restRepo.GetApiStream<Currency[]>(url, GetRequestHeaders());
 
             return response;
         }

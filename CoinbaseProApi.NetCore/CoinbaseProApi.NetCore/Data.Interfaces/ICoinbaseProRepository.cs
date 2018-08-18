@@ -147,5 +147,47 @@ namespace CoinbaseProApi.NetCore.Data.Interfaces
         /// </summary>
         /// <returns>ExchangeProduct object array</returns>
         Task<ExchangeProduct[]> GetTradingPairs();
+
+        /// <summary>
+        /// Get historic rates
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="granularity">Candle size</param>
+        /// <param name="candleCount">Number of candles</param>
+        /// <returns>HistoricRates array</returns>
+        Task<HistoricRates[]> GetHistoricRates(string pair, Granularity granularity, int candleCount);
+
+        /// <summary>
+        /// Get historic rates
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="endTime">End time of candles (UTC Time)</param>
+        /// <param name="granularity">Candle size</param>
+        /// <param name="candleCount">Number of candles</param>
+        /// <returns>HistoricRates array</returns>
+        Task<HistoricRates[]> GetHistoricRates(string pair, DateTime endTime, Granularity granularity, int candleCount);
+
+        /// <summary>
+        /// Get historic rates
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="startTime">Start time of candles (UTC Time)</param>
+        /// <param name="endTime">End time of candles (UTC Time)</param>
+        /// <param name="granularity">Candle size</param>
+        /// <returns>HistoricRates array</returns>
+        Task<HistoricRates[]> GetHistoricRates(string pair, DateTime startTime, DateTime endTime, Granularity granularity);
+
+        /// <summary>
+        /// Get 24hr stats for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>PairStats object</returns>
+        Task<PairStats> GetStats(string pair);
+
+        /// <summary>
+        /// Get all currencies
+        /// </summary>
+        /// <returns>Currency array</returns>
+        Task<Currency[]> GetCurrencies();
     }
 }
