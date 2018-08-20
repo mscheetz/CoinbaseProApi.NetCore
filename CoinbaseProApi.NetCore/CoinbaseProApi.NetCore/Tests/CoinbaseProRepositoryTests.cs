@@ -16,7 +16,7 @@ namespace CoinbaseProApi.NetCore.Tests
         private ApiInformation _exchangeApi = null;
         private ICoinbaseProRepository _repo;
         private ICoinbaseProRepository _repoAuth;
-        private string configPath = "";
+        private string configPath = "config.json";
         private Helper helper = new Helper();
         private DateTimeHelper dtHelper = new DateTimeHelper();
 
@@ -37,6 +37,286 @@ namespace CoinbaseProApi.NetCore.Tests
         public void Dispose()
         {
 
+        }
+
+        [Fact]
+        public void GetAccounts_Test()
+        {
+            // act
+            var account = _repoAuth.GetAccounts().Result;
+
+            // assert
+            Assert.NotNull(account);
+        }
+
+        [Fact]
+        public void GetAccountBalance_Test()
+        {
+            // act
+            var account = _repoAuth.GetAccounts().Result;
+
+            // arrange
+            var id = account[0].id;
+
+            // act
+            var balance = _repoAuth.GetAccountBalance(id).Result;
+
+            // assert
+            Assert.NotNull(balance);
+        }
+
+        [Fact]
+        public void GetAccountHistory_Test()
+        {
+            // act
+            var account = _repoAuth.GetAccounts().Result;
+
+            // arrange
+            var id = account[0].id;
+
+            // act
+            var history = _repoAuth.GetAccountHistory(id).Result;
+
+            // assert
+            Assert.NotNull(history);
+        }
+
+        [Fact]
+        public void GetAccountHolds_Test()
+        {
+            // act
+            var account = _repoAuth.GetAccounts().Result;
+
+            // arrange
+            var id = account[0].id;
+
+            // act
+            var holds = _repoAuth.GetAccountHolds(id).Result;
+
+            // assert
+            Assert.NotNull(holds);
+        }
+
+        [Fact]
+        public void PlaceMarketOrder_Test1()
+        {
+            var side = SIDE.SELL;
+            var pair = "BTCUSD";
+            var size = 0.5M;
+
+            // act
+            var order = _repoAuth.PlaceMarketOrder(side, pair, size).Result;
+
+            // assert
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void PlaceMarketOrder_Test2()
+        {
+            var side = SIDE.SELL;
+            var pair = "BTCUSD";
+            var size = 0.0M;
+            var funds = 1000.0M;
+
+            // act
+            var order = _repoAuth.PlaceMarketOrder(side, pair, size, funds).Result;
+
+            // assert
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void PlaceLimitOrder_Test1()
+        {
+            var side = SIDE.SELL;
+            var pair = "BTCUSD";
+            var price = 7500.00M;
+            var size = 0.5M;
+
+            // act
+            var order = _repoAuth.PlaceLimitOrder(side, pair, price, size).Result;
+
+            // assert
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void PlaceLimitOrder_Test2()
+        {
+            var side = SIDE.SELL;
+            var pair = "BTCUSD";
+            var price = 10000.00M;
+            var size = 2.0M;
+            var tif = TimeInForce.GTC;
+
+            // act
+            var order = _repoAuth.PlaceLimitOrder(side, pair, price, size, tif).Result;
+
+            // assert
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void PlaceStopLoss_Test()
+        {
+            var type = StopType.LIMIT;
+            var side = SIDE.SELL;
+            var pair = "BTCUSD";
+            var price = 6100.00M;
+            var stop_price = 6100.00M;
+            var size = 0.5M;
+
+            // act
+            var stopLoss = _repoAuth.PlaceStopOrder(type, side, pair, price, stop_price, size).Result;
+
+            // assert
+            Assert.NotNull(stopLoss);
+        }
+
+        [Fact]
+        public void CancelOrder_Test()
+        {
+            var id = "2852d1cf-ad53-46b8-870e-cfe1ffcb0fde";
+
+            // act
+            var order = _repoAuth.CancelOrder(id).Result;
+
+            // assert
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void CancelOrders_Test()
+        {
+            // act
+            var orders = _repoAuth.CancelOrders().Result;
+
+            // assert
+            Assert.NotNull(orders);
+        }
+
+        [Fact]
+        public void GetOrders_Test()
+        {
+            // arrange
+            var pair = "BTCUSD";
+
+            // act
+            var orders = _repoAuth.GetOrders(pair).Result;
+
+            // assert
+            Assert.NotNull(orders);
+        }
+
+        [Fact]
+        public void GetOrder_Test()
+        {
+            // arrange
+            var id = "443501";
+
+            // act
+            var order = _repoAuth.GetOrder(id).Result;
+
+            // assert
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void GetFills_Test()
+        {
+            // act
+            var fills = _repoAuth.GetFills().Result;
+
+            // assert
+            Assert.NotNull(fills);
+        }
+
+        [Fact]
+        public void GetTrailingVolume_Test()
+        {
+            // act
+            var volume = _repoAuth.GetTrailingVolume().Result;
+
+            // assert
+            Assert.NotNull(volume);
+        }
+
+        [Fact]
+        public void GetTradingPairs_Test()
+        {
+            // act
+            var pairs = _repo.GetTradingPairs().Result;
+
+            // assert
+            Assert.NotNull(pairs);
+        }
+
+        [Fact]
+        public void GetOrderBook_Test_Level1()
+        {
+            // arrange
+            var pair = "BTCUSD";
+            var level = 1;
+
+            // act
+            var book = _repo.GetOrderBook(pair, level).Result;
+
+            // assert
+            Assert.NotNull(book);
+        }
+
+        [Fact]
+        public void GetOrderBook_Test_Level2()
+        {
+            // arrange
+            var pair = "BTCUSD";
+
+            // act
+            var book = _repo.GetOrderBook(pair).Result;
+
+            // assert
+            Assert.NotNull(book);
+        }
+
+        [Fact]
+        public void GetOrderBook_Test_Level3()
+        {
+            // arrange
+            var pair = "BTCUSD";
+            var level = 3;
+
+            // act
+            var book = _repo.GetOrderBook(pair, level).Result;
+
+            // assert
+            Assert.NotNull(book);
+        }
+
+        [Fact]
+        public void GetTicker_Test()
+        {
+            // arrange
+            var pair = "BTCUSD";
+
+            // act
+            var ticker = _repo.GetTicker(pair).Result;
+
+            // assert
+            Assert.NotNull(ticker);
+        }
+
+        [Fact]
+        public void GetTrades_Test()
+        {
+            // arrange
+            var pair = "BTCUSD";
+
+            // act
+            var trades = _repo.GetTrades(pair).Result;
+
+            // assert
+            Assert.NotNull(trades);
         }
 
         [Fact]
