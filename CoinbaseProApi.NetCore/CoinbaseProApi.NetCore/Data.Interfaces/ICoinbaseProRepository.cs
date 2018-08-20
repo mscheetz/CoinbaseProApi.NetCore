@@ -86,15 +86,20 @@ namespace CoinbaseProApi.NetCore.Data.Interfaces
         /// <summary>
         /// Place a stop limit trade
         /// </summary>
-        /// <param name="tradeParams">GDAXStopLostParams for setting the SL</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="type">Stop Type</param>
+        /// <param name="side">Trade side</param>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="price">Price of trade</param>
+        /// <param name="stop_price">Stop price</param>
+        /// <param name="size">Size of trade</param>
+        /// <returns>OrderResponse object</returns>
         Task<OrderResponse> PlaceStopOrder(StopType type, SIDE side, string pair, decimal price, decimal stop_price, decimal size);
 
         /// <summary>
         /// Place a stop limit trade
         /// </summary>
-        /// <param name="tradeParams">GDAXStopLostParams for setting the SL</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="tradeParams">StopLostParams for setting the SL</param>
+        /// <returns>OrderResponse object</returns>
         Task<OrderResponse> PlaceStopOrder(StopLossParams tradeParams);
 
         /// <summary>

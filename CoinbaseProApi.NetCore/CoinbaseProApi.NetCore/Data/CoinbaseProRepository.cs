@@ -304,8 +304,13 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Place a stop limit trade
         /// </summary>
-        /// <param name="tradeParams">GDAXStopLostParams for setting the SL</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="type">Stop Type</param>
+        /// <param name="side">Trade side</param>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="price">Price of trade</param>
+        /// <param name="stop_price">Stop price</param>
+        /// <param name="size">Size of trade</param>
+        /// <returns>OrderResponse object</returns>
         public async Task<OrderResponse> PlaceStopOrder(StopType type, SIDE side, string pair, decimal price, decimal stop_price, decimal size)
         {
             var tradingPair = _helper.CreateDashedPair(pair);
@@ -323,8 +328,8 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Place a stop limit trade
         /// </summary>
-        /// <param name="tradeParams">GDAXStopLostParams for setting the SL</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="tradeParams">StopLostParams for setting the SL</param>
+        /// <returns>OrderResponse object</returns>
         public async Task<OrderResponse> PlaceStopOrder(StopLossParams tradeParams)
         {
             return await OnPlaceTrade(tradeParams);
@@ -333,8 +338,8 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Place a limit order trade
         /// </summary>
-        /// <param name="tradeParams">GDAXTradeParams for setting the trade</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="tradeParams">TradeParams for setting the trade</param>
+        /// <returns>OrderResponse object</returns>
         private async Task<OrderResponse> OnPlaceTrade(Dictionary<string, object> tradeParams)
         {
             var req = new Request
@@ -352,8 +357,8 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Place a limit order trade
         /// </summary>
-        /// <param name="tradeParams">GDAXTradeParams for setting the trade</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="tradeParams">TradeParams for setting the trade</param>
+        /// <returns>OrderResponse object</returns>
         private async Task<OrderResponse> OnPlaceTrade(TradeParams tradeParams)
         {
             var tradingPair = _helper.CreateDashedPair(tradeParams.product_id);
@@ -374,8 +379,8 @@ namespace CoinbaseProApi.NetCore.Data
         /// <summary>
         /// Place a limit order trade
         /// </summary>
-        /// <param name="tradeParams">GDAXTradeParams for setting the trade</param>
-        /// <returns>GDAXOrderResponse object</returns>
+        /// <param name="tradeParams">TradeParams for setting the trade</param>
+        /// <returns>OrderResponse object</returns>
         private async Task<OrderResponse> OnPlaceTrade(StopLossParams tradeParams)
         {
             var tradingPair = _helper.CreateDashedPair(tradeParams.product_id);
@@ -751,7 +756,7 @@ namespace CoinbaseProApi.NetCore.Data
             string utcDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
             var headers = new Dictionary<string, string>();
 
-            headers.Add("User-Agent", "GDAX Request");
+            headers.Add("User-Agent", "Coinbase Pro Request");
 
             if (secure)
             {
