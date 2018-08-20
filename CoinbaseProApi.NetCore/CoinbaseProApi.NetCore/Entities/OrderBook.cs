@@ -14,6 +14,6 @@ namespace CoinbaseProApi.NetCore.Entities
         [JsonProperty(Order = 2)]
         public decimal size { get; set; }
         [JsonProperty(Order = 3)]
-        public int orders { get; set; }
+        public string orders { get; set; }
     }
 }
