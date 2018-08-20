@@ -13,10 +13,10 @@ namespace CoinbaseProApi.NetCore.Core
         /// <param name="message">Message to sign</param>
         /// <param name="keySecret">Api key secret</param>
         /// <returns>string of signed message</returns>
-        public string GetHMACSignature(string totalParams, string secretKey)
+        public string GetHMACSignature(string message, string secretKey)
         {
             byte[] keyByte = Convert.FromBase64String(secretKey);
-            byte[] messageByte = Encoding.UTF8.GetBytes(totalParams);
+            byte[] messageByte = Encoding.UTF8.GetBytes(message);
             using (var hmac = new HMACSHA256(keyByte))
             {
                 byte[] hashMessage = hmac.ComputeHash(messageByte);
