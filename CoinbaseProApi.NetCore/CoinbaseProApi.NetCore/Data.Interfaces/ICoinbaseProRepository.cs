@@ -40,8 +40,9 @@ namespace CoinbaseProApi.NetCore.Data.Interfaces
         /// </summary>
         /// <param name="side">Buy or sell</param>
         /// <param name="pair">Trading pair</param>
+        /// <param name="size">Size of trade</param>
         /// <returns>OrderResponse object</returns>
-        Task<OrderResponse> PlaceMarketOrder(SIDE side, string pair);
+        Task<OrderResponse> PlaceMarketOrder(SIDE side, string pair, decimal size);
 
         /// <summary>
         /// Place a market order trade
@@ -147,6 +148,27 @@ namespace CoinbaseProApi.NetCore.Data.Interfaces
         /// </summary>
         /// <returns>ExchangeProduct object array</returns>
         Task<ExchangeProduct[]> GetTradingPairs();
+
+        /// <summary>
+        /// Get Current Order book
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="level">Request level, default = 2</param>
+        /// <returns>ProductsOrderBookResponse object</returns>
+        Task<OrderBookResponse> GetOrderBook(string pair, int level = 2);
+
+        /// <summary>
+        /// Get current ticker for a pair
+        /// </summary>
+        /// <returns>Ticker object</returns>
+        Task<Ticker> GetTicker(string pair);
+
+        /// <summary>
+        /// Get recent trades
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>Trade array</returns>
+        Task<Trade[]> GetTrades(string pair);
 
         /// <summary>
         /// Get historic rates

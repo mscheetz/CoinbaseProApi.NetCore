@@ -91,7 +91,7 @@ namespace CoinbaseProApi.NetCore.Data
             _security = new Security();
             _restRepo = new RESTRepository();
             baseUrl = useSandbox 
-                ? "https://public.sandbox.pro.coinbase.com"
+                ? "https://api-public.sandbox.pro.coinbase.com"
                 : "https://api.pro.coinbase.com";
             _helper = new Helper();
             _dtHelper = new DateTimeHelper();
@@ -196,13 +196,15 @@ namespace CoinbaseProApi.NetCore.Data
         /// </summary>
         /// <param name="side">Buy or sell</param>
         /// <param name="pair">Trading pair</param>
+        /// <param name="size">Size of trade</param>
         /// <returns>OrderResponse object</returns>
-        public async Task<OrderResponse> PlaceMarketOrder(SIDE side, string pair)
+        public async Task<OrderResponse> PlaceMarketOrder(SIDE side, string pair, decimal size)
         {
             var tradingPair = _helper.CreateDashedPair(pair);
             var tradeParams = new Dictionary<string, object>();
             tradeParams.Add("product_id", tradingPair);
             tradeParams.Add("side", side.ToString().ToLower());
+            tradeParams.Add("size", size);
             tradeParams.Add("type", TradeType.MARKET.ToString().ToLower());
 
             return await OnPlaceTrade(tradeParams);
@@ -249,7 +251,7 @@ namespace CoinbaseProApi.NetCore.Data
             var tradeParams = new Dictionary<string, object>();
             tradeParams.Add("product_id", tradingPair);
             tradeParams.Add("side", side.ToString().ToLower());
-            tradeParams.Add("type", TradeType.MARKET.ToString().ToLower());
+            tradeParams.Add("type", TradeType.LIMIT.ToString().ToLower());
             tradeParams.Add("price", price);
             tradeParams.Add("size", size);
             tradeParams.Add("post_only", true);
@@ -273,14 +275,14 @@ namespace CoinbaseProApi.NetCore.Data
             var tradeParams = new Dictionary<string, object>();
             tradeParams.Add("product_id", tradingPair);
             tradeParams.Add("side", side.ToString().ToLower());
-            tradeParams.Add("type", TradeType.MARKET.ToString().ToLower());
+            tradeParams.Add("type", TradeType.LIMIT.ToString().ToLower());
             tradeParams.Add("price", price);
             tradeParams.Add("size", size);
             if (tif != TimeInForce.IOC && tif != TimeInForce.FOK)
             {
                 tradeParams.Add("post_only", true);
             }
-            tradeParams.Add("time_in_force", tif.ToString().ToLower());
+            tradeParams.Add("time_in_force", tif.ToString());
             if(tca != TradeCancelAfter.NONE && tif == TimeInForce.GTT)
             {
                 tradeParams.Add("cancel_after", tca.ToString().ToLower());
@@ -312,7 +314,7 @@ namespace CoinbaseProApi.NetCore.Data
             tradeParams.Add("side", side.ToString().ToLower());
             tradeParams.Add("type", type.ToString().ToLower());
             tradeParams.Add("price", price);
-            tradeParams.Add("stop_price", stop_price);
+            //tradeParams.Add("stop_price", stop_price);
             tradeParams.Add("size", size);
 
             return await OnPlaceTrade(tradeParams);
@@ -447,16 +449,11 @@ namespace CoinbaseProApi.NetCore.Data
         public async Task<OrderResponse[]> GetOrders(string pair = "", OrderStatus status = OrderStatus.ALL)
         {
             var tradingPair = string.Empty;
-            var queryParam = string.Empty;
+            var queryParam = $"?status={status.ToString().ToLower()}";
             if (pair != "")
             {
                 tradingPair = _helper.CreateDashedPair(pair);
-                queryParam = $"?product_id={tradingPair}";
-            }
-            if(status != OrderStatus.ALL)
-            {
-                queryParam += !string.IsNullOrEmpty(queryParam) ? "&" : "?";
-                queryParam = $"status={status.ToString().ToLower()}";
+                queryParam += $"&product_id={tradingPair}";
             }
             var req = new Request
             {
@@ -464,7 +461,7 @@ namespace CoinbaseProApi.NetCore.Data
                 path = $"/orders{queryParam}",
                 body = ""
             };
-            var url = baseUrl + req.path + queryParam;
+            var url = baseUrl + req.path;
 
             var response = await _restRepo.GetApiStream<OrderResponse[]>(url, GetRequestHeaders(true, req));
 
@@ -587,7 +584,7 @@ namespace CoinbaseProApi.NetCore.Data
         /// Get recent trades
         /// </summary>
         /// <param name="pair">Trading pair</param>
-        /// <returns>GdaxTrade array</returns>
+        /// <returns>Trade array</returns>
         public async Task<Trade[]> GetTrades(string pair)
         {
             var tradingPair = _helper.CreateDashedPair(pair);
@@ -780,7 +777,7 @@ namespace CoinbaseProApi.NetCore.Data
         /// <returns>String of signature</returns>
         private string CreateSignature(string message)
         {
-            var hmac = _security.GetHMACSignature(_apiInfo.apiSecret, message);
+            var hmac = _security.GetHMACSignature(message, _apiInfo.apiSecret);
             return hmac;
         }
     }
