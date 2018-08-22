@@ -48,15 +48,15 @@ namespace CoinbaseProApi.NetCore.Data
         /// </summary>
         /// <param name="apiKey">Api key</param>
         /// <param name="apiSecret">Api key secret</param>
-        /// <param name="extraValue">Api key extra value</param>
+        /// <param name="apiPassword">Api key password</param>
         /// <param name="useSandbox">Use sandbox api (default = false)</param>
-        public CoinbaseProRepository(string apiKey, string apiSecret, string extraValue, bool useSandbox = false)
+        public CoinbaseProRepository(string apiKey, string apiSecret, string apiPassword, bool useSandbox = false)
         {
             _apiInfo = new ApiInformation
             {
                 apiKey = apiKey,
                 apiSecret = apiSecret,
-                extraValue = extraValue
+                apiPassword = apiPassword
             };
             LoadRepository(useSandbox);
         }
@@ -319,7 +319,6 @@ namespace CoinbaseProApi.NetCore.Data
             tradeParams.Add("side", side.ToString().ToLower());
             tradeParams.Add("type", type.ToString().ToLower());
             tradeParams.Add("price", price);
-            //tradeParams.Add("stop_price", stop_price);
             tradeParams.Add("size", size);
 
             return await OnPlaceTrade(tradeParams);
@@ -768,7 +767,7 @@ namespace CoinbaseProApi.NetCore.Data
                     headers.Add("CB-ACCESS-KEY", _apiInfo.apiKey);
                     headers.Add("CB-ACCESS-TIMESTAMP", nonce);
                     headers.Add("CB-ACCESS-SIGN", CreateSignature(message));
-                    headers.Add("CB-ACCESS-PASSPHRASE", _apiInfo.extraValue);
+                    headers.Add("CB-ACCESS-PASSPHRASE", _apiInfo.apiPassword);
                 }
                 headers.Add("CB-VERSION", utcDate);
             }

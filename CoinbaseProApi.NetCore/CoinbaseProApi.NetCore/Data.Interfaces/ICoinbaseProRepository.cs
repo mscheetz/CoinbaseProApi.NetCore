@@ -9,6 +9,12 @@ namespace CoinbaseProApi.NetCore.Data.Interfaces
     public interface ICoinbaseProRepository
     {
         /// <summary>
+        /// Check if the Exchange Repository is ready for trading
+        /// </summary>
+        /// <returns>Boolean of validation</returns>
+        bool ValidateExchangeConfigured();
+
+        /// <summary>
         /// Get account balances for user
         /// </summary>
         /// <returns>Accout object array</returns>
