@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Matt Scheetz</Authors>
+    <Description>Api library for accessing the CoinbasePro exchange Api</Description>
+    <Copyright>2018 Matt Scheetz</Copyright>
+    <PackageProjectUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore</RepositoryUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageLicenseUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>coinbase bitcoin ethereum litecoin cryptocurrency exchange trading api net core</PackageTags>
+    <PackageReleaseNotes>Api library for accessing the CoinbasePro exchange Api</PackageReleaseNotes>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
