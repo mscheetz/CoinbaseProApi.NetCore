@@ -3,7 +3,7 @@
   
 This library is available on NuGet for download: https://www.nuget.org/packages/CoinbaseProApi.NetCore/  
 ```
-PM> Install-Package CoinbaseProApi.NetCore -Version 1.0.0
+PM> Install-Package CoinbaseProApi.NetCore
 ```
 
   
