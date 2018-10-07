@@ -132,6 +132,26 @@ namespace CoinbaseProApi.NetCore.Data
         }
 
         /// <summary>
+        /// Get account balance for user
+        /// </summary>
+        /// <param name="id">Id of account</param>
+        /// <returns>Accout object</returns>
+        public async Task<Account> GetAccount(string id)
+        {
+            var req = new Request
+            {
+                method = "GET",
+                path = $"/accounts/{id}",
+                body = string.Empty
+            };
+            var url = baseUrl + req.path;
+
+            var accountList = await _restRepo.GetApi<Account>(url, GetRequestHeaders(true, req));
+
+            return accountList;
+        }
+
+        /// <summary>
         /// Get account balances for user
         /// </summary>
         /// <param name="id">String of account id</param>
@@ -189,6 +209,33 @@ namespace CoinbaseProApi.NetCore.Data
             var accountHistory = await _restRepo.GetApi<AccountHold[]>(url, GetRequestHeaders(true, req));
 
             return accountHistory;
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchagne
+        /// </summary>
+        /// <param name="symbol">String of currency symbol</param>
+        /// <param name="amount">Amount to withdraw</param>
+        /// <param name="address">Addresss to withdraw to</param>
+        /// <returns>WithdrawalResponse object</returns>
+        public async Task<WithdrawalResponse> WithdrawFunds(string symbol, decimal amount, string address)
+        {
+            var tradeParams = new Dictionary<string, object>();
+            tradeParams.Add("amount", amount);
+            tradeParams.Add("currency", symbol);
+            tradeParams.Add("crypto_address", address);
+
+            var req = new Request
+            {
+                method = "POST",
+                path = "/withdrawals/crypto",
+                body = JsonConvert.SerializeObject(tradeParams)
+            };
+            var url = baseUrl + req.path;
+
+            var response = await _restRepo.PostApi<WithdrawalResponse, Dictionary<string, object>>(url, tradeParams, GetRequestHeaders(true, req));
+
+            return response;
         }
 
         /// <summary>
@@ -765,8 +812,8 @@ namespace CoinbaseProApi.NetCore.Data
                     var body = request.body == "" ? string.Empty : request.body;
                     string message = $"{nonce}{request.method}{request.path}{body}";
                     headers.Add("CB-ACCESS-KEY", _apiInfo.apiKey);
-                    headers.Add("CB-ACCESS-TIMESTAMP", nonce);
                     headers.Add("CB-ACCESS-SIGN", CreateSignature(message));
+                    headers.Add("CB-ACCESS-TIMESTAMP", nonce);
                     headers.Add("CB-ACCESS-PASSPHRASE", _apiInfo.apiPassword);
                 }
                 headers.Add("CB-VERSION", utcDate);

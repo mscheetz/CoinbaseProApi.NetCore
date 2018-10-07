@@ -50,6 +50,19 @@ namespace CoinbaseProApi.NetCore.Tests
         }
 
         [Fact]
+        public void GetAccount_Test()
+        {
+            // arrange
+            var accountId = "e5607305-b63f-4746-ab14-c2cb613b9b8d";
+
+            //act
+            var account = _repoAuth.GetAccount(accountId).Result;
+
+            // assert
+            Assert.NotNull(account);
+        }
+
+        [Fact]
         public void GetAccountBalance_Test()
         {
             // act

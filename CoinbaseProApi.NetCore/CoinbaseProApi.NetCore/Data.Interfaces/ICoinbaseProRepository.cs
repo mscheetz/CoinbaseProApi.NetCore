@@ -21,6 +21,13 @@ namespace CoinbaseProApi.NetCore.Data.Interfaces
         Task<Account[]> GetAccounts();
 
         /// <summary>
+        /// Get account balance for user
+        /// </summary>
+        /// <param name="id">Id of account</param>
+        /// <returns>Accout object</returns>
+        Task<Account> GetAccount(string id);
+
+        /// <summary>
         /// Get account balances for user
         /// </summary>
         /// <param name="id">String of account id</param>

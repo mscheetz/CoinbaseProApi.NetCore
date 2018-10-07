@@ -71,6 +71,16 @@ namespace CoinbaseProApi.NetCore
         }
 
         /// <summary>
+        /// Get account balance for user
+        /// </summary>
+        /// <param name="id">Account id</param>
+        /// <returns>Accout object array</returns>
+        public Account GetAccount(string id)
+        {
+            return _repository.GetAccount(id).Result;
+        }
+
+        /// <summary>
         /// Get account balances for user
         /// </summary>
         /// <param name="id">String of account id</param>
@@ -358,6 +368,16 @@ namespace CoinbaseProApi.NetCore
         public async Task<Account[]> GetAccountsAsync()
         {
             return await _repository.GetAccounts();
+        }
+
+        /// <summary>
+        /// Get account balance for user asyncronously
+        /// </summary>
+        /// <param name="id">Account id</param>
+        /// <returns>Accout object array</returns>
+        public async Task<Account> GetAccountAsync(string id)
+        {
+            return await _repository.GetAccount(id);
         }
 
         /// <summary>
