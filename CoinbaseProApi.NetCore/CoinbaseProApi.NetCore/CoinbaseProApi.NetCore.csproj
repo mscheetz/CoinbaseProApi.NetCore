@@ -10,9 +10,14 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageLicenseUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>coinbase bitcoin ethereum litecoin cryptocurrency exchange trading api net standard</PackageTags>
-    <PackageReleaseNotes>Updates for .Net Standard</PackageReleaseNotes>
+    <PackageReleaseNotes>Include comments for nuget package</PackageReleaseNotes>
     <IsPackable>true</IsPackable>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Source\Git\CoinbaseProApi.NetCore\CoinbaseProApi.NetCore\CoinbaseProApi.NetCore\CoinbaseProApi.NetCore.xml</DocumentationFile>
+    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

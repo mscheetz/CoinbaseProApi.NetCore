@@ -1,0 +1,1048 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoinbaseProApi.NetCore</name>
+    </assembly>
+    <members>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.#ctor(System.Boolean)">
+            <summary>
+            Constructor - no authentication
+            </summary>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor - with authentication
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api secret</param>
+            <param name="apiPassword">Api password</param>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor - with authentication
+            </summary>
+            <param name="configPath">Path to config file</param>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.ValidateExchangeConfigured">
+            <summary>
+            Check if the Exchange Repository is ready for trading
+            </summary>
+            <returns>Boolean of validation</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccounts">
+            <summary>
+            Get account balances for user
+            </summary>
+            <returns>Accout object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccount(System.String)">
+            <summary>
+            Get account balance for user
+            </summary>
+            <param name="id">Account id</param>
+            <returns>Accout object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountBalance(System.String)">
+            <summary>
+            Get account balances for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>Accout object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountHistory(System.String)">
+            <summary>
+            Get account history for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccountHistory object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountHolds(System.String)">
+            <summary>
+            Get account holds for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccoutHold object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceMarketOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal)">
+            <summary>
+            Place a basic market order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceMarketOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a market order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Amount in BTC</param>
+            <param name="funds">Amount of quote currency to use</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceLimitOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a basic limit order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceLimitOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,CoinbaseProApi.NetCore.Entities.TimeInForce,CoinbaseProApi.NetCore.Entities.TradeCancelAfter)">
+            <summary>
+            Place a limit order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <param name="tif">Time in force (default = GTC)</param>
+            <param name="tca">Cancel after (default = none)</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceTrade(CoinbaseProApi.NetCore.Entities.TradeParams)">
+            <summary>
+            Place an order trade
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceStopOrder(CoinbaseProApi.NetCore.Entities.StopType,CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop limit trade
+            </summary>
+            <param name="type">Stop Type</param>
+            <param name="side">Trade side</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Price of trade</param>
+            <param name="stop_price">Stop price</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceStopOrder(CoinbaseProApi.NetCore.Entities.StopLossParams)">
+            <summary>
+            Place a stop limit trade
+            </summary>
+            <param name="tradeParams">StopLostParams for setting the SL</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.CancelOrder(System.String)">
+            <summary>
+            Cancel an open order
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Boolean result of cancel request</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.CancelOrders">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <returns>String array of canceled order ids</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrders">
+            <summary>
+            Get all open orders
+            </summary>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrders(System.String,CoinbaseProApi.NetCore.Entities.OrderStatus)">
+            <summary>
+            Get open orders
+            </summary>
+            <param name="pair">Trading pair (default = "")</param>
+            <param name="status">Order status (default = all)</param>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrder(System.String)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Order object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetFills">
+            <summary>
+            Get all fills
+            </summary>
+            <returns>Fill array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTrailingVolume">
+            <summary>
+            Get user's 30-day trailing volume for all pairs
+            </summary>
+            <returns>TrailingVolume object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTradingPairs">
+            <summary>
+            Get available trading pairs
+            </summary>
+            <returns>ExchangeProduct object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrderBook(System.String,System.Int32)">
+            <summary>
+            Get Current Order book
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="level">Request level, default = 2</param>
+            <returns>ProductsOrderBookResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTicker(System.String)">
+            <summary>
+            Get current ticker for a pair
+            </summary>
+            <returns>Ticker object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTrades(System.String)">
+            <summary>
+            Get recent trades
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>Trade array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetHistoricRates(System.String,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetHistoricRates(System.String,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="endTime">End time of candles (UTC Time)</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetHistoricRates(System.String,System.DateTime,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="startTime">Start time of candles (UTC Time)</param>
+            <param name="endTime">End time of candles (UTC Time)</param>
+            <param name="granularity">Candle size</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetStats(System.String)">
+            <summary>
+            Get 24hr stats for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>PairStats object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetCurrencies">
+            <summary>
+            Get all currencies
+            </summary>
+            <returns>Currency array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountsAsync">
+            <summary>
+            Get account balances for user asyncronously
+            </summary>
+            <returns>Accout object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountAsync(System.String)">
+            <summary>
+            Get account balance for user asyncronously
+            </summary>
+            <param name="id">Account id</param>
+            <returns>Accout object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountBalanceAsync(System.String)">
+            <summary>
+            Get account balances for user asyncronously
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>Accout object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountHistoryAsync(System.String)">
+            <summary>
+            Get account history for user asyncronously
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccountHistory object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetAccountHoldsAsync(System.String)">
+            <summary>
+            Get account holds for user asyncronously
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccoutHold object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceMarketOrderAsync(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal)">
+            <summary>
+            Place a basic market order trade asyncronously
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceMarketOrderAsync(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a market order trade asyncronously
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Amount in BTC</param>
+            <param name="funds">Amount of quote currency to use</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceLimitOrderAsync(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a basic limit order trade asyncronously
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceLimitOrderAsync(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,CoinbaseProApi.NetCore.Entities.TimeInForce,CoinbaseProApi.NetCore.Entities.TradeCancelAfter)">
+            <summary>
+            Place a limit order trade asyncronously
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <param name="tif">Time in force (default = GTC)</param>
+            <param name="tca">Cancel after (default = none)</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceTradeAsync(CoinbaseProApi.NetCore.Entities.TradeParams)">
+            <summary>
+            Place an order trade asyncronously
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceStopOrderAsync(CoinbaseProApi.NetCore.Entities.StopType,CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop limit trade asyncronously
+            </summary>
+            <param name="type">Stop Type</param>
+            <param name="side">Trade side</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Price of trade</param>
+            <param name="stop_price">Stop price</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.PlaceStopOrderAsync(CoinbaseProApi.NetCore.Entities.StopLossParams)">
+            <summary>
+            Place a stop limit trade asyncronously
+            </summary>
+            <param name="tradeParams">StopLostParams for setting the SL</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.CancelOrderAsync(System.String)">
+            <summary>
+            Cancel an open order asyncronously
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Boolean result of cancel request</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.CancelOrdersAsync">
+            <summary>
+            Cancel all open orders asyncronously
+            </summary>
+            <returns>String array of canceled order ids</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrdersAsync">
+            <summary>
+            Get all open orders asyncronously
+            </summary>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrdersAsync(System.String,CoinbaseProApi.NetCore.Entities.OrderStatus)">
+            <summary>
+            Get open orders asyncronously
+            </summary>
+            <param name="pair">Trading pair (default = "")</param>
+            <param name="status">Order status (default = all)</param>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrderAsync(System.String)">
+            <summary>
+            Get details of an order asyncronously
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Order object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetFillsAsync">
+            <summary>
+            Get all fills asyncronously
+            </summary>
+            <returns>Fill array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTrailingVolumeAsync">
+            <summary>
+            Get user's 30-day trailing volume for all pairs asyncronously
+            </summary>
+            <returns>TrailingVolume object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTradingPairsAsync">
+            <summary>
+            Get available trading pairs asyncronously
+            </summary>
+            <returns>ExchangeProduct object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetOrderBookAsync(System.String,System.Int32)">
+            <summary>
+            Get Current Order book asyncronously
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="level">Request level, default = 2</param>
+            <returns>ProductsOrderBookResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTickerAsync(System.String)">
+            <summary>
+            Get current ticker for a pair asyncronously
+            </summary>
+            <returns>Ticker object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetTradesAsync(System.String)">
+            <summary>
+            Get recent trades asyncronously
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>Trade array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetHistoricRatesAsync(System.String,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates asyncronously
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetHistoricRatesAsync(System.String,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates asyncronously
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="endTime">End time of candles (UTC Time)</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetHistoricRatesAsync(System.String,System.DateTime,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity)">
+            <summary>
+            Get historic rates asyncronously
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="startTime">Start time of candles (UTC Time)</param>
+            <param name="endTime">End time of candles (UTC Time)</param>
+            <param name="granularity">Candle size</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetStatsAsync(System.String)">
+            <summary>
+            Get 24hr stats for a trading pair asyncronously
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>PairStats object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.CoinbaseProClient.GetCurrenciesAsync">
+            <summary>
+            Get all currencies asyncronously
+            </summary>
+            <returns>Currency array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Core.Helper.CreateDashedPair(System.String)">
+            <summary>
+            Creates dashed pair (ie BTC-ETH)
+            </summary>
+            <param name="pair">String of pair</param>
+            <returns>String of pair</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Core.Helper.GranularityToNumber(CoinbaseProApi.NetCore.Entities.Granularity)">
+            <summary>
+            Get number vaule of granularity
+            </summary>
+            <param name="granularity">Granularity enum value</param>
+            <returns>Converted long value</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Core.Helper.GetISO8601Date(System.DateTime)">
+            <summary>
+            Get a string of ISO 8601 DateTime format
+            </summary>
+            <param name="date">DateTime to convert</param>
+            <returns>String of converted time</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Core.Helper.GetFromUnixTime(System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get datetime off-set from a given datetime
+            </summary>
+            <param name="endTime">Ending time</param>
+            <param name="interval">Stick interval</param>
+            <param name="stickNumber">Number of sticks</param>
+            <returns>DateTime of off-set time</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Core.Security.GetHMACSignature(System.String,System.String)">
+            <summary>
+            Get HMAC Signature
+            </summary>
+            <param name="message">Message to sign</param>
+            <param name="keySecret">Api key secret</param>
+            <returns>string of signed message</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.ValidateExchangeConfigured">
+            <summary>
+            Check if the Exchange Repository is ready for trading
+            </summary>
+            <returns>Boolean of validation</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetAccounts">
+            <summary>
+            Get account balances for user
+            </summary>
+            <returns>Accout object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetAccount(System.String)">
+            <summary>
+            Get account balance for user
+            </summary>
+            <param name="id">Id of account</param>
+            <returns>Accout object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetAccountBalance(System.String)">
+            <summary>
+            Get account balances for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>Accout object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetAccountHistory(System.String)">
+            <summary>
+            Get account history for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccountHistory object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetAccountHolds(System.String)">
+            <summary>
+            Get account holds for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccoutHold object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceMarketOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal)">
+            <summary>
+            Place a basic market order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceMarketOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a market order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Amount in BTC</param>
+            <param name="funds">Amount of quote currency to use</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceLimitOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a basic limit order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceLimitOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,CoinbaseProApi.NetCore.Entities.TimeInForce,CoinbaseProApi.NetCore.Entities.TradeCancelAfter)">
+            <summary>
+            Place a limit order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <param name="tif">Time in force (default = GTC)</param>
+            <param name="tca">Cancel after (default = none)</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceTrade(CoinbaseProApi.NetCore.Entities.TradeParams)">
+            <summary>
+            Place an order trade
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceStopOrder(CoinbaseProApi.NetCore.Entities.StopType,CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop limit trade
+            </summary>
+            <param name="type">Stop Type</param>
+            <param name="side">Trade side</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Price of trade</param>
+            <param name="stop_price">Stop price</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.PlaceStopOrder(CoinbaseProApi.NetCore.Entities.StopLossParams)">
+            <summary>
+            Place a stop limit trade
+            </summary>
+            <param name="tradeParams">StopLostParams for setting the SL</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.CancelOrder(System.String)">
+            <summary>
+            Cancel an open order
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Boolean result of cancel request</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.CancelOrders">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <returns>String array of canceled order ids</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetOrders">
+            <summary>
+            Get all open orders
+            </summary>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetOrders(System.String,CoinbaseProApi.NetCore.Entities.OrderStatus)">
+            <summary>
+            Get open orders
+            </summary>
+            <param name="pair">Trading pair (default = "")</param>
+            <param name="status">Order status (default = all)</param>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetOrder(System.String)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Order object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetFills">
+            <summary>
+            Get all fills
+            </summary>
+            <returns>Fill array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetTrailingVolume">
+            <summary>
+            Get user's 30-day trailing volume for all pairs
+            </summary>
+            <returns>TrailingVolume object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetTradingPairs">
+            <summary>
+            Get available trading pairs
+            </summary>
+            <returns>ExchangeProduct object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetOrderBook(System.String,System.Int32)">
+            <summary>
+            Get Current Order book
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="level">Request level, default = 2</param>
+            <returns>ProductsOrderBookResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetTicker(System.String)">
+            <summary>
+            Get current ticker for a pair
+            </summary>
+            <returns>Ticker object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetTrades(System.String)">
+            <summary>
+            Get recent trades
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>Trade array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetHistoricRates(System.String,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetHistoricRates(System.String,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="endTime">End time of candles (UTC Time)</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetHistoricRates(System.String,System.DateTime,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="startTime">Start time of candles (UTC Time)</param>
+            <param name="endTime">End time of candles (UTC Time)</param>
+            <param name="granularity">Candle size</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetStats(System.String)">
+            <summary>
+            Get 24hr stats for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>PairStats object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.Interfaces.ICoinbaseProRepository.GetCurrencies">
+            <summary>
+            Get all currencies
+            </summary>
+            <returns>Currency array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.#ctor(System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.#ctor(CoinbaseProApi.NetCore.Entities.ApiInformation,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="apiInfo">ApiInformation for authentication</param>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api key secret</param>
+            <param name="apiPassword">Api key password</param>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="configPath">Path to configuration file</param>
+            <param name="useSandbox">Use sandbox api (default = false)</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.LoadRepository(System.Boolean)">
+            <summary>
+            Load repository
+            </summary>
+            <param name="key">Api key value (default = "")</param>
+            <param name="secret">Api secret value (default = "")</param>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.ValidateExchangeConfigured">
+            <summary>
+            Check if the Exchange Repository is ready for trading
+            </summary>
+            <returns>Boolean of validation</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetAccounts">
+            <summary>
+            Get account balances for user
+            </summary>
+            <returns>Accout object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetAccount(System.String)">
+            <summary>
+            Get account balance for user
+            </summary>
+            <param name="id">Id of account</param>
+            <returns>Accout object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetAccountBalance(System.String)">
+            <summary>
+            Get account balances for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>Accout object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetAccountHistory(System.String)">
+            <summary>
+            Get account history for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccountHistory object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetAccountHolds(System.String)">
+            <summary>
+            Get account holds for user
+            </summary>
+            <param name="id">String of account id</param>
+            <returns>AccoutHold object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.WithdrawFunds(System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchagne
+            </summary>
+            <param name="symbol">String of currency symbol</param>
+            <param name="amount">Amount to withdraw</param>
+            <param name="address">Addresss to withdraw to</param>
+            <returns>WithdrawalResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceMarketOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal)">
+            <summary>
+            Place a basic market order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceMarketOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a market order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="size">Amount in BTC</param>
+            <param name="funds">Amount of quote currency to use</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceLimitOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal)">
+            <summary>
+            Place a basic limit order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceLimitOrder(CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,CoinbaseProApi.NetCore.Entities.TimeInForce,CoinbaseProApi.NetCore.Entities.TradeCancelAfter)">
+            <summary>
+            Place a limit order trade
+            </summary>
+            <param name="side">Buy or sell</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Trading price</param>
+            <param name="size">Amount in trade</param>
+            <param name="tif">Time in force (default = GTC)</param>
+            <param name="tca">Cancel after (default = none)</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceTrade(CoinbaseProApi.NetCore.Entities.TradeParams)">
+            <summary>
+            Place an order trade
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceStopOrder(CoinbaseProApi.NetCore.Entities.StopType,CoinbaseProApi.NetCore.Entities.SIDE,System.String,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop limit trade
+            </summary>
+            <param name="type">Stop Type</param>
+            <param name="side">Trade side</param>
+            <param name="pair">Trading pair</param>
+            <param name="price">Price of trade</param>
+            <param name="stop_price">Stop price</param>
+            <param name="size">Size of trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.PlaceStopOrder(CoinbaseProApi.NetCore.Entities.StopLossParams)">
+            <summary>
+            Place a stop limit trade
+            </summary>
+            <param name="tradeParams">StopLostParams for setting the SL</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.OnPlaceTrade(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Place a limit order trade
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.OnPlaceTrade(CoinbaseProApi.NetCore.Entities.TradeParams)">
+            <summary>
+            Place a limit order trade
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.OnPlaceTrade(CoinbaseProApi.NetCore.Entities.StopLossParams)">
+            <summary>
+            Place a limit order trade
+            </summary>
+            <param name="tradeParams">TradeParams for setting the trade</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.CancelOrder(System.String)">
+            <summary>
+            Cancel an open order
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Boolean result of cancel request</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.CancelOrders">
+            <summary>
+            Cancel all open orders
+            </summary>
+            <returns>String array of canceled order ids</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetOrders">
+            <summary>
+            Get all open orders
+            </summary>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetOrders(System.String,CoinbaseProApi.NetCore.Entities.OrderStatus)">
+            <summary>
+            Get open orders
+            </summary>
+            <param name="pair">Trading pair (default = "")</param>
+            <param name="status">Order status (default = all)</param>
+            <returns>OrderResponse array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetOrder(System.String)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="id">Order Id</param>
+            <returns>Order object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetFills">
+            <summary>
+            Get all fills
+            </summary>
+            <returns>Fill array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetTrailingVolume">
+            <summary>
+            Get user's 30-day trailing volume for all pairs
+            </summary>
+            <returns>TrailingVolume object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetTradingPairs">
+            <summary>
+            Get available trading pairs
+            </summary>
+            <returns>ExchangeProduct object array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetOrderBook(System.String,System.Int32)">
+            <summary>
+            Get Current Order book
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="level">Request level, default = 2</param>
+            <returns>ProductsOrderBookResponse object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetTicker(System.String)">
+            <summary>
+            Get current ticker for a pair
+            </summary>
+            <returns>Ticker object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetTrades(System.String)">
+            <summary>
+            Get recent trades
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>Trade array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetHistoricRates(System.String,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetHistoricRates(System.String,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="endTime">End time of candles</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetHistoricRates(System.String,System.DateTime,System.DateTime,CoinbaseProApi.NetCore.Entities.Granularity)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="startTime">Start time of candles</param>
+            <param name="endTime">End time of candles</param>
+            <param name="granularity">Candle size</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.OnGetHistoricRates(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},CoinbaseProApi.NetCore.Entities.Granularity,System.Int32)">
+            <summary>
+            Get historic rates
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="startTime">Start time of candles</param>
+            <param name="endTime">End time of candles</param>
+            <param name="granularity">Candle size</param>
+            <param name="candleCount">Number of candles</param>
+            <returns>HistoricRates array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetStats(System.String)">
+            <summary>
+            Get 24hr stats for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>PairStats object</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetCurrencies">
+            <summary>
+            Get all currencies
+            </summary>
+            <returns>Currency array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetCandleSticks(System.String,System.Int32)">
+            <summary>
+            Convert GdaxTrade array to BotStick array
+            </summary>
+            <param name="pair">String of trading pair</param>
+            <param name="range">Size of array to return</param>
+            <returns>BotStick array</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.GetRequestHeaders(System.Boolean,CoinbaseProApi.NetCore.Entities.Request)">
+            <summary>
+            Add request headers to api call
+            </summary>
+            <returns>Dictionary of request headers</returns>
+        </member>
+        <member name="M:CoinbaseProApi.NetCore.Data.CoinbaseProRepository.CreateSignature(System.String)">
+            <summary>
+            Create signature for message
+            </summary>
+            <param name="message">Message to sign</param>
+            <returns>String of signature</returns>
+        </member>
+    </members>
+</doc>
