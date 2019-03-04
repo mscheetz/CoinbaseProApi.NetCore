@@ -7,6 +7,7 @@ using System.Text;
 namespace CoinbaseProApi.NetCore.Entities
 {
     [JsonConverter(typeof(Converter.ObjectToArrayConverter<HistoricRates>))]
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public class HistoricRates
     {
         [JsonProperty(Order = 1)]

@@ -7,6 +7,7 @@ using System.Text;
 namespace CoinbaseProApi.NetCore.Entities
 {
     [JsonConverter(typeof(Converter.ObjectToArrayConverter<OrderBook>))]
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public class OrderBook
     {
         [JsonProperty(Order = 1)]

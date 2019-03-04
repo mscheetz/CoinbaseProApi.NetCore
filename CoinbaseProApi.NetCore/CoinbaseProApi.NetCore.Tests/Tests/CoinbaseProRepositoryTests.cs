@@ -6,6 +6,7 @@ using DateTimeHelpers;
 using FileRepository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -344,6 +345,45 @@ namespace CoinbaseProApi.NetCore.Tests
 
             // assert
             Assert.NotNull(rates);
+        }
+
+        [Fact]
+        public void GetHistoricRatesTestII_NoTimes()
+        {
+            // arrange
+            var pair = "ETHUSD";
+            var gran = Granularity.OneD;
+            var dtHelper = new DateTimeHelper();
+            // act
+            var rates = _repo.GetHistoricRates(pair, gran, 300).Result;
+
+            // assert
+            Assert.NotNull(rates);
+
+            var firstTS = rates.Min(r => r.time);
+            var firstDate = dtHelper.UnixTimeToUTC(firstTS);
+            rates = _repo.GetHistoricRates(pair, firstDate, gran, 300).Result;
+
+            if(rates.Any())
+            {
+                Assert.NotNull(rates);
+            }
+            firstTS = rates.Min(r => r.time);
+            firstDate = dtHelper.UnixTimeToUTC(firstTS);
+            rates = _repo.GetHistoricRates(pair, firstDate, gran, 300).Result;
+
+            if (rates.Any())
+            {
+                Assert.NotNull(rates);
+            }
+            firstTS = rates.Min(r => r.time);
+            firstDate = dtHelper.UnixTimeToUTC(firstTS);
+            rates = _repo.GetHistoricRates(pair, firstDate, gran, 300).Result;
+
+            if (rates.Any())
+            {
+                Assert.NotNull(rates);
+            }
         }
 
         [Fact]
