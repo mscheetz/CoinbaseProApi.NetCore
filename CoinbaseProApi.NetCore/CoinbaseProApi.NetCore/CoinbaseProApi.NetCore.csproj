@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore</RepositoryUrl>
     <PackageIconUrl></PackageIconUrl>
-    <PackageLicenseUrl>https://github.com/mscheetz/CoinbaseProApi.NetCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>coinbase bitcoin ethereum litecoin cryptocurrency exchange trading api net standard</PackageTags>
     <PackageReleaseNotes>Updated dependencies</PackageReleaseNotes>
     <IsPackable>true</IsPackable>
