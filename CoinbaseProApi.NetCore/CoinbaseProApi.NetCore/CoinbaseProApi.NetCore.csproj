@@ -12,7 +12,7 @@
     <PackageTags>coinbase bitcoin ethereum litecoin cryptocurrency exchange trading api net standard</PackageTags>
     <PackageReleaseNotes>Update to dependency</PackageReleaseNotes>
     <IsPackable>true</IsPackable>
-    <Version>1.1.4</Version>
+    <Version>1.1.6</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
